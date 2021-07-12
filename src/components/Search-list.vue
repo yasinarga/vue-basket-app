@@ -1,19 +1,19 @@
 <template>
   <div class="row">
     <div class="col-md-5 m-auto">
-      <div class="row">
+      <div class="row" v-if="isBusy" >
         <div v-for="(item, index) in list" class="col-md-6 p-4 list-items" :key="index">
-
-          <img :src="item.image">
-          <p>{{ item.name }}</p>
-          <div class="d-flex justify-content-around">
-            <div class="align-self-center"> {{ item.price }} {{ item.currency }}</div>
-            <div>
-              <button class="btn btn-warning" @click="addBasket(item)">ADD BASKET</button>
+            <img :src="item.image">
+            <p>{{ item.name }}</p>
+            <div class="d-flex justify-content-around">
+              <div class="align-self-center"> {{ item.price }} {{ item.currency }}</div>
+              <div>
+                <button class="btn btn-warning" @click="addBasket(item)">ADD BASKET</button>
+              </div>
             </div>
           </div>
-        </div>
       </div>
+      <div v-else> <h2>Response waiting...</h2> </div>
     </div>
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
   name: "SearchList",
 
   data:()=>({
-    list :[]
+    list :[],
+    isBusy : false
   }),
 
   mounted() {
@@ -39,6 +40,7 @@ export default {
     async getList(){
       await axios.get('https://nonchalant-fang.glitch.me/listing').then( res=> {
         this.list = res.data
+        this.isBusy = true
       })
     },
 

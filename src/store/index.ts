@@ -21,6 +21,7 @@ export default new Vuex.Store({
     mutations: {
         async addItemToList(state, payload) {
 
+
             const data = [{
                 id: payload.id,
                 amount: payload.amount
@@ -33,6 +34,7 @@ export default new Vuex.Store({
                         state.basket[findIndex]['amount']++
                     } else {
                         payload.amount = 1
+                        // @ts-ignore
                         state.basket.push(payload)
                     }
                     router.push({name: 'Basket'})
@@ -54,7 +56,7 @@ export default new Vuex.Store({
         calculateTotalPrice(state) {
             let price = 0
             state.basket.map(item => {
-                price += item.amount * item.price
+                price += item['amount'] * item['price']
             })
 
             state.totalPrice = price

@@ -37,7 +37,7 @@
       </ul>
       <div class="d-flex w-100 justify-content-center">
         <button class="btn w-100"> <router-link to="/">  CONTINUE SHOPPING</router-link> </button>
-        <button class="btn w-100 btn-warning" @click="clickPlaceOrder">PLACE ORDER</button>
+        <button class="btn w-100 btn-warning" @click="clickPlaceOrder" :disabled="!basketList.length">PLACE ORDER</button>
       </div>
     </div>
 
